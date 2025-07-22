@@ -403,13 +403,14 @@ export const PricingCalculator = () => {
 
       {showPopup && (
         <div 
-          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2"
+          className="absolute bg-black/80 flex items-center justify-center z-50 p-2"
           style={{ 
-            position: 'fixed',
-            top: 0,
+            position: 'absolute',
+            top: scrollPosition,
             left: 0,
             right: 0,
-            bottom: 0,
+            width: '100%',
+            height: '100vh',
             zIndex: 9999
           }}
         >
