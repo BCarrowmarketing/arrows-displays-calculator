@@ -15,22 +15,46 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      #root {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        overflow: hidden;
+      }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
 
-    <!-- Resize script for iframe embedding -->
+    <!-- Accurate iframe height messaging -->
     <script>
       function sendHeight() {
-        const height = document.documentElement.scrollHeight;
-        window.parent.postMessage({ type: 'resize-iframe', height }, '*');
+        const height =
+          document.body.scrollHeight || document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
       }
 
+      // Listen for layout changes to trigger resize
       window.addEventListener('load', sendHeight);
       window.addEventListener('resize', sendHeight);
-      setTimeout(sendHeight, 500);
+
+      const observer = new ResizeObserver(() => {
+        sendHeight();
+      });
+      observer.observe(document.body);
+
+      // Fallback trigger just in case
+      setTimeout(sendHeight, 1000);
     </script>
   </body>
 </html>
