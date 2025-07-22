@@ -23,6 +23,7 @@ export const PricingCalculator = () => {
   const [peakTime, setPeakTime] = useState(false);
   const [screenTakeover, setScreenTakeover] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [calculation, setCalculation] = useState<PricingCalculation>({
     basePrice: 0,
     addOns: 0,
@@ -354,9 +355,8 @@ export const PricingCalculator = () => {
                   size="lg" 
                   className="w-full"
                   onClick={() => {
+                    setScrollPosition(window.scrollY);
                     setShowPopup(true);
-                    // Scroll to top to ensure modal is visible
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}
                 >
                   Sign Up Now
@@ -402,7 +402,17 @@ export const PricingCalculator = () => {
       </div>
 
       {showPopup && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2">
+        <div 
+          className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2"
+          style={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 9999
+          }}
+        >
           <div className="bg-white rounded-md p-6 w-full max-w-3xl max-h-[95vh] overflow-y-auto relative border border-gray-300">
             <button 
               onClick={() => setShowPopup(false)}
