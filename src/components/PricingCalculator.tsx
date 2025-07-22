@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye, Plus, Minus, ExternalLink } from 'lucide-react';
 
 interface PricingCalculation {
   basePrice: number;
@@ -17,7 +18,7 @@ interface PricingCalculation {
 
 export const PricingCalculator = () => {
   const [spotDuration, setSpotDuration] = useState<10 | 20 | 30>(20);
-  const [locationTier, setLocationTier] = useState<'1' | '2-5' | '6-10' | '11+'>('1');
+  const [locationCount, setLocationCount] = useState<number>(1);
   const [contractTerm, setContractTerm] = useState<6 | 12>(6);
   const [peakTime, setPeakTime] = useState(false);
   const [screenTakeover, setScreenTakeover] = useState(false);
@@ -38,11 +39,18 @@ export const PricingCalculator = () => {
     30: 200,
   };
 
-  const locationMultipliers = {
-    '1': { count: 1, discount: 0 },
-    '2-5': { count: 3, discount: 0.05 },
-    '6-10': { count: 8, discount: 0.10 },
-    '11+': { count: 15, discount: 0.15 },
+  const getLocationDiscount = (count: number) => {
+    if (count >= 11) return 0.15;
+    if (count >= 6) return 0.10;
+    if (count >= 2) return 0.05;
+    return 0;
+  };
+
+  const getDiscountLabel = (count: number) => {
+    if (count >= 11) return '15% multi-location discount applied';
+    if (count >= 6) return '10% multi-location discount applied';
+    if (count >= 2) return '5% multi-location discount applied';
+    return '';
   };
 
   useEffect(() => {
@@ -54,13 +62,13 @@ export const PricingCalculator = () => {
     const planDiscountRate = contractTerm === 12 ? 0.10 : 0;
     const discountedPerLocation = perLocationPrice * (1 - planDiscountRate);
     
-    // Then apply location multiplier and discount
-    const locationData = locationMultipliers[locationTier];
-    const subtotalBeforeLocationDiscount = discountedPerLocation * locationData.count;
-    const locationDiscountAmount = subtotalBeforeLocationDiscount * locationData.discount;
+    // Then apply location discount
+    const locationDiscountRate = getLocationDiscount(locationCount);
+    const subtotalBeforeLocationDiscount = discountedPerLocation * locationCount;
+    const locationDiscountAmount = subtotalBeforeLocationDiscount * locationDiscountRate;
     
     const finalPrice = subtotalBeforeLocationDiscount - locationDiscountAmount;
-    const originalPrice = perLocationPrice * locationData.count;
+    const originalPrice = perLocationPrice * locationCount;
     const totalSavings = originalPrice - finalPrice;
     const annualSavings = totalSavings * 12;
 
@@ -68,13 +76,13 @@ export const PricingCalculator = () => {
       basePrice,
       addOns: addOnCost,
       subtotal: perLocationPrice,
-      planDiscount: perLocationPrice * planDiscountRate * locationData.count,
+      planDiscount: perLocationPrice * planDiscountRate * locationCount,
       locationDiscount: locationDiscountAmount,
       finalPrice,
       totalSavings,
       annualSavings,
     });
-  }, [spotDuration, locationTier, contractTerm, peakTime, screenTakeover]);
+  }, [spotDuration, locationCount, contractTerm, peakTime, screenTakeover]);
 
   return (
     <div className="w-full max-w-4xl mx-auto p-6 space-y-8">
@@ -113,7 +121,7 @@ export const PricingCalculator = () => {
                       <span className="text-sm">${spotPrices[duration]}/month</span>
                     </Button>
                     {duration === 20 && (
-                      <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-accent">
+                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent z-10">
                         Most Popular
                       </Badge>
                     )}
@@ -128,31 +136,60 @@ export const PricingCalculator = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-primary" />
-                Select Number of Locations
+                How many locations would you like to advertise at?
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {([
-                  { key: '1' as const, label: '1 Location', discount: '0%' },
-                  { key: '2-5' as const, label: '2-5 Locations', discount: '5% off' },
-                  { key: '6-10' as const, label: '6-10 Locations', discount: '10% off' },
-                  { key: '11+' as const, label: '11+ Locations', discount: '15% off' },
-                ]).map((option) => (
-                  <Button
-                    key={option.key}
-                    variant={locationTier === option.key ? "option-selected" : "option"}
-                    size="lg"
-                    className="h-16 flex-col space-y-1"
-                    onClick={() => setLocationTier(option.key)}
-                  >
-                    <span className="font-semibold">{option.label}</span>
-                    {option.discount !== '0%' && (
-                      <span className="text-sm text-accent font-medium">{option.discount}</span>
-                    )}
-                  </Button>
-                ))}
+            <CardContent className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="p-2"
+                  onClick={() => setLocationCount(Math.max(1, locationCount - 1))}
+                  disabled={locationCount <= 1}
+                >
+                  <Minus className="w-4 h-4" />
+                </Button>
+                <Input
+                  type="number"
+                  value={locationCount}
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 1;
+                    setLocationCount(Math.max(1, value));
+                  }}
+                  className="w-24 text-center text-lg font-semibold"
+                  min="1"
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="p-2"
+                  onClick={() => setLocationCount(locationCount + 1)}
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
               </div>
+              
+              {getDiscountLabel(locationCount) && (
+                <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
+                  <div className="text-accent font-bold text-center">
+                    {getDiscountLabel(locationCount)}
+                  </div>
+                </div>
+              )}
+              
+              <p className="text-sm text-muted-foreground">
+                Not sure which locations?{' '}
+                <a 
+                  href="https://www.arrowsdisplays.com/locations" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  View our available locations
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </p>
             </CardContent>
           </Card>
 
@@ -252,10 +289,10 @@ export const PricingCalculator = () => {
               
               {calculation.totalSavings > 0 && (
                 <div className="bg-accent/10 border border-accent/20 rounded-lg p-4 space-y-2">
-                  <div className="text-accent font-semibold">
+                  <div className="text-accent font-bold text-lg">
                     Monthly Savings: ${Math.round(calculation.totalSavings)}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-muted-foreground font-semibold">
                     That's ${Math.round(calculation.annualSavings)} saved per year!
                   </div>
                 </div>
@@ -273,16 +310,16 @@ export const PricingCalculator = () => {
                 {calculation.planDiscount > 0 && (
                   <div className="flex justify-between">
                     <span>12-month commitment:</span>
-                    <span className="text-accent font-semibold">-${Math.round(calculation.planDiscount)}</span>
+                    <span className="text-accent font-bold">-${Math.round(calculation.planDiscount)}</span>
                   </div>
                 )}
                 {calculation.locationDiscount > 0 && (
                   <div className="flex justify-between">
                     <span>Multi-location discount:</span>
-                    <span className="text-accent font-semibold">-${Math.round(calculation.locationDiscount)}</span>
+                    <span className="text-accent font-bold">-${Math.round(calculation.locationDiscount)}</span>
                   </div>
                 )}
-                <div className="border-t pt-2 flex justify-between font-semibold">
+                <div className="border-t pt-2 flex justify-between font-bold text-lg">
                   <span>Total Monthly Savings:</span>
                   <span className="text-accent">${Math.round(calculation.totalSavings)}</span>
                 </div>
@@ -294,7 +331,7 @@ export const PricingCalculator = () => {
           <Card className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground">
             <CardContent className="p-6 text-center space-y-4">
               <h3 className="text-xl font-bold">Ready to Get Started?</h3>
-              <p className="text-primary-foreground/90">
+              <p className="text-primary-foreground/90 text-sm">
                 Connect with Southern Idaho customers today
               </p>
               <Button variant="secondary" size="lg" className="w-full">
@@ -327,7 +364,7 @@ export const PricingCalculator = () => {
                 </div>
                 <div className="flex justify-between">
                   <span>Number of locations:</span>
-                  <span>{locationMultipliers[locationTier].count}</span>
+                  <span>{locationCount}</span>
                 </div>
                 <div className="border-t pt-2 flex justify-between font-semibold">
                   <span>Final Monthly Total:</span>
