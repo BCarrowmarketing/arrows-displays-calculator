@@ -355,7 +355,7 @@ export const PricingCalculator = () => {
                   className="w-full"
                   onClick={() => setShowPopup(true)}
                 >
-                  Request Your Custom Quote
+                  Sign Up Now
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
