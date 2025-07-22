@@ -7,33 +7,6 @@ import { Card, CardContent } from '@/components/ui/card';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary-dark/90 z-10"
-        />
-        <img 
-          src={heroImage} 
-          alt="Arrows Displays Digital Signage Network" 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="relative z-20 container mx-auto px-6 py-20 text-center text-white">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
-            Southern Idaho's
-            <span className="block bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-              Digital Advertising Network
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto animate-fade-in">
-            Simple, affordable, and made for the community. Connect with local customers through our strategically placed digital displays.
-          </p>
-          <Button size="lg" variant="secondary" className="animate-bounce-in">
-            Calculate Your Investment
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </div>
-      </div>
-
       {/* Features Section */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid md:grid-cols-3 gap-8 mb-16">
