@@ -353,7 +353,11 @@ export const PricingCalculator = () => {
                   variant="secondary" 
                   size="lg" 
                   className="w-full"
-                  onClick={() => setShowPopup(true)}
+                  onClick={() => {
+                    setShowPopup(true);
+                    // Scroll to top to ensure modal is visible
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
                 >
                   Sign Up Now
                   <ArrowRight className="w-4 h-4 ml-2" />
