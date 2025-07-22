@@ -85,17 +85,7 @@ export const PricingCalculator = () => {
   }, [spotDuration, locationCount, contractTerm, peakTime, screenTakeover]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-4 animate-fade-in">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-          Calculate Your Digital Advertising Investment
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          See how our community-focused pricing works for your business
-        </p>
-      </div>
-
+    <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Configuration Panel */}
         <div className="lg:col-span-2 space-y-6">
@@ -219,7 +209,7 @@ export const PricingCalculator = () => {
                   onClick={() => setContractTerm(12)}
                 >
                   <span className="font-semibold">12 Month Commitment</span>
-                  <span className="text-sm text-accent font-medium">10% off</span>
+                  <span className="text-sm text-accent font-bold">10% off</span>
                 </Button>
               </div>
             </CardContent>
@@ -329,19 +319,19 @@ export const PricingCalculator = () => {
 
           {/* Call to Action */}
           <Card className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground">
-            <CardContent className="p-6 space-y-4">
-              <div className="text-center">
-                <h3 className="text-xl font-bold mb-2">Ready to Get Started?</h3>
-                <p className="text-primary-foreground/90 text-sm mb-4">
+            <CardContent className="p-8">
+              <div className="text-center space-y-4">
+                <h3 className="text-2xl font-bold">Ready to Get Started?</h3>
+                <p className="text-primary-foreground/90">
                   Connect with Southern Idaho customers today
                 </p>
                 <Button 
                   variant="secondary" 
                   size="lg" 
-                  className="w-full justify-center items-center gap-2"
+                  className="w-full"
                 >
                   Request Your Custom Quote
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             </CardContent>
