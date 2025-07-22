@@ -121,7 +121,7 @@ export const PricingCalculator = () => {
                       <span className="text-sm">${spotPrices[duration]}/month</span>
                     </Button>
                     {duration === 20 && (
-                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-accent z-10">
+                      <Badge className="absolute -top-2 -right-2 bg-accent z-10 shadow-lg">
                         Most Popular
                       </Badge>
                     )}
@@ -310,16 +310,16 @@ export const PricingCalculator = () => {
                 {calculation.planDiscount > 0 && (
                   <div className="flex justify-between">
                     <span>12-month commitment:</span>
-                    <span className="text-accent font-bold">-${Math.round(calculation.planDiscount)}</span>
+                    <span className="text-accent font-bold text-lg">-${Math.round(calculation.planDiscount)}</span>
                   </div>
                 )}
                 {calculation.locationDiscount > 0 && (
                   <div className="flex justify-between">
                     <span>Multi-location discount:</span>
-                    <span className="text-accent font-bold">-${Math.round(calculation.locationDiscount)}</span>
+                    <span className="text-accent font-bold text-lg">-${Math.round(calculation.locationDiscount)}</span>
                   </div>
                 )}
-                <div className="border-t pt-2 flex justify-between font-bold text-lg">
+                <div className="border-t pt-2 flex justify-between font-bold text-xl">
                   <span>Total Monthly Savings:</span>
                   <span className="text-accent">${Math.round(calculation.totalSavings)}</span>
                 </div>
@@ -329,15 +329,21 @@ export const PricingCalculator = () => {
 
           {/* Call to Action */}
           <Card className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground">
-            <CardContent className="p-6 text-center space-y-4">
-              <h3 className="text-xl font-bold">Ready to Get Started?</h3>
-              <p className="text-primary-foreground/90 text-sm">
-                Connect with Southern Idaho customers today
-              </p>
-              <Button variant="secondary" size="lg" className="w-full">
-                Request Your Custom Quote
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+            <CardContent className="p-6 space-y-4">
+              <div className="text-center">
+                <h3 className="text-xl font-bold mb-2">Ready to Get Started?</h3>
+                <p className="text-primary-foreground/90 text-sm mb-4">
+                  Connect with Southern Idaho customers today
+                </p>
+                <Button 
+                  variant="secondary" 
+                  size="lg" 
+                  className="w-full justify-center items-center gap-2"
+                >
+                  Request Your Custom Quote
+                  <ArrowRight className="w-4 h-4" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
 
