@@ -18,6 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        calculator: "bg-gradient-to-r from-primary to-primary-light text-primary-foreground hover:shadow-lg hover:scale-105 transition-all duration-300",
+        option: "border-2 border-border bg-background text-foreground hover:border-primary hover:bg-primary/5 transition-all duration-200",
+        "option-selected": "border-2 border-primary bg-primary text-primary-foreground shadow-md",
       },
       size: {
         default: "h-10 px-4 py-2",
