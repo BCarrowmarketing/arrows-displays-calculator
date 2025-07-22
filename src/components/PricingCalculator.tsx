@@ -215,11 +215,11 @@ export const PricingCalculator = () => {
                 <Button
                   variant={contractTerm === 12 ? "option-selected" : "option"}
                   size="lg"
-                  className="h-16 flex-col space-y-1 text-white"
+                  className="h-16 flex-col space-y-1"
                   onClick={() => setContractTerm(12)}
                 >
-                  <span className="font-semibold text-white">12 Month Commitment</span>
-                  <span className="text-sm font-bold text-green-400">10% off</span>
+                  <span className="font-semibold">12 Month Commitment</span>
+                  <span className="text-sm">10% off</span>
                 </Button>
               </div>
             </CardContent>
