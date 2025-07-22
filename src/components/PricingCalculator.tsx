@@ -22,6 +22,7 @@ export const PricingCalculator = () => {
   const [contractTerm, setContractTerm] = useState<6 | 12>(6);
   const [peakTime, setPeakTime] = useState(false);
   const [screenTakeover, setScreenTakeover] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [calculation, setCalculation] = useState<PricingCalculation>({
     basePrice: 0,
     addOns: 0,
@@ -83,6 +84,19 @@ export const PricingCalculator = () => {
       annualSavings,
     });
   }, [spotDuration, locationCount, contractTerm, peakTime, screenTakeover]);
+
+  useEffect(() => {
+    // Load HubSpot form script
+    const script = document.createElement('script');
+    script.src = 'https://js-na2.hsforms.net/forms/embed/242168862.js';
+    script.defer = true;
+    document.head.appendChild(script);
+    
+    return () => {
+      // Cleanup script on unmount
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
@@ -339,6 +353,7 @@ export const PricingCalculator = () => {
                   variant="secondary" 
                   size="lg" 
                   className="w-full"
+                  onClick={() => setShowPopup(true)}
                 >
                   Request Your Custom Quote
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -381,6 +396,20 @@ export const PricingCalculator = () => {
           </details>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto relative">
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+            <div className="hs-form-frame" data-region="na2" data-form-id="5dc939be-4be4-4ce1-b271-187881e30fa5" data-portal-id="242168862"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
