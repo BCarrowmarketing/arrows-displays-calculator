@@ -105,35 +105,20 @@ export const PricingCalculator = () => {
   }, [spotDuration, locationCount, contractTerm, peakTime, screenTakeover]);
 
   useEffect(() => {
-    // Load HubSpot form script
-    const script = document.createElement('script');
-    script.src = 'https://js-na2.hsforms.net/forms/embed/242168862.js';
-    script.defer = true;
-    
-    // Add form submission handler for proper redirect
-    script.onload = () => {
-      // Wait for HubSpot to initialize then add event listener
-      setTimeout(() => {
-        if (window.hbspt) {
-          window.hbspt.forms.create({
-            region: "na2",
-            portalId: "242168862",
-            formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
-            target: ".hs-form-frame",
-            onFormSubmitted: function($form, data) {
-              // Redirect the parent window immediately after submission
-              window.parent.location.href = 'https://arrowsdisplays.com/locations/';
-            }
-          });
-        }
-      }, 1000);
+    // Listen for form submission message from iframe
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data?.type === "form-submitted") {
+        // Wait 10 seconds then redirect
+        setTimeout(() => {
+          window.location.href = 'https://arrowsdisplays.com/locations/';
+        }, 10000);
+      }
     };
-    
-    document.head.appendChild(script);
+
+    window.addEventListener("message", handleMessage);
     
     return () => {
-      // Cleanup script on unmount
-      document.head.removeChild(script);
+      window.removeEventListener("message", handleMessage);
     };
   }, []);
 
