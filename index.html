@@ -6,15 +6,16 @@
     <title>arrowprice-calculator</title>
     <meta name="description" content="Lovable Generated Project" />
     <meta name="author" content="Lovable" />
-
     <meta property="og:title" content="arrowprice-calculator" />
     <meta property="og:description" content="Lovable Generated Project" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    
+    <!-- HubSpot Forms Script -->
+    <script src="https://js-na2.hsforms.net/forms/embed/242168862.js" defer></script>
     
     <style>
       html, body {
@@ -22,7 +23,6 @@
         padding: 0;
         overflow-x: hidden;
       }
-
       #root {
         display: flex;
         flex-direction: column;
@@ -31,11 +31,29 @@
       }
     </style>
   </head>
-
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-
+    
+    <!-- HubSpot Form Initialization -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.hbspt) {
+          window.hbspt.forms.create({
+            region: "na2",
+            portalId: "242168862",
+            formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
+            target: ".hs-form-frame",
+            onFormSubmitted: function($form, data) {
+              window.parent.postMessage({
+                type: "form-submitted"
+              }, "*");
+            }
+          });
+        }
+      });
+    </script>
+    
     <!-- Accurate iframe height messaging -->
     <script>
       function sendHeight() {
@@ -43,16 +61,13 @@
           document.body.scrollHeight || document.documentElement.scrollHeight;
         window.parent.postMessage({ type: 'resize-iframe', height: height }, '*');
       }
-
       // Listen for layout changes to trigger resize
       window.addEventListener('load', sendHeight);
       window.addEventListener('resize', sendHeight);
-
       const observer = new ResizeObserver(() => {
         sendHeight();
       });
       observer.observe(document.body);
-
       // Fallback trigger just in case
       setTimeout(sendHeight, 1000);
     </script>
