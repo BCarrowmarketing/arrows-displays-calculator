@@ -145,7 +145,7 @@ export const PricingCalculator = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-center space-x-4">
                 <Button
                   variant="outline"
                   size="sm"
