@@ -45,9 +45,15 @@
             formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
             target: ".hs-form-frame",
             onFormSubmitted: function($form, data) {
+              // Send message to parent window first
               window.parent.postMessage({
                 type: "form-submitted"
               }, "*");
+              
+              // Wait 5 seconds then redirect
+              setTimeout(function() {
+                window.top.location.href = "https://www.arrowsdisplays.com/locations";
+              }, 5000);
             }
           });
         }
