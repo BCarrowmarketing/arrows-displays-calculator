@@ -144,7 +144,7 @@ export const PricingCalculator = () => {
                 How many locations would you like to advertise at?
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 text-center">
               <div className="flex items-center justify-center space-x-4">
                 <Button
                   variant="outline"
