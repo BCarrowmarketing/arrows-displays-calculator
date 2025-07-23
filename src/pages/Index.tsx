@@ -10,7 +10,7 @@ const Index = () => {
       {/* Header Section */}
       <div className="container mx-auto px-6 pt-20 pb-12">
         <div className="text-center space-y-6 animate-fade-in">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent animate-[gradient-slide_4s_ease-in-out_infinite] bg-[length:200%_auto] leading-tight">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary/80 via-primary to-primary/40 bg-clip-text text-transparent animate-[gradient-slide_4s_ease-in-out_infinite] bg-[length:200%_auto] leading-tight">
             Calculate Your Digital Advertising Investment
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
