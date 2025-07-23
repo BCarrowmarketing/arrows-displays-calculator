@@ -37,32 +37,46 @@
     
     <!-- HubSpot Form Initialization -->
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        if (window.hbspt) {
-          window.hbspt.forms.create({
-            region: "na2",
-            portalId: "242168862",
-            formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
-            target: ".hs-form-frame",
-            onFormSubmitted: function($form, data) {
-              // Send message to parent window first
-              window.parent.postMessage({
-                type: "form-submitted"
-              }, "*");
-              
-              // Wait 5 seconds then redirect
-              setTimeout(function() {
-                try {
-                  window.top.location.href = "https://www.arrowsdisplays.com/locations";
-                } catch (e) {
-                  // Fallback if top-level redirect is blocked
-                  window.open("https://www.arrowsdisplays.com/locations", "_top");
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.hbspt) {
+        window.hbspt.forms.create({
+          region: "na2",
+          portalId: "242168862",
+          formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
+          target: ".hs-form-frame",
+          onFormSubmitted: function($form, data) {
+            // Send message to parent window
+            window.parent.postMessage({
+              type: "form-submitted"
+            }, "*");
+            
+            // Also try to redirect from iframe after 5 seconds
+            setTimeout(function() {
+              // Try multiple redirect methods
+              try {
+                // Method 1: Try to redirect parent window
+                if (window.parent && window.parent !== window) {
+                  window.parent.location.href = "https://www.arrowsdisplays.com/locations";
                 }
-              }, 5000);
-            }
-          });
-        }
-      });
+              } catch (e1) {
+                try {
+                  // Method 2: Try top-level redirect
+                  window.top.location.href = "https://www.arrowsdisplays.com/locations";
+                } catch (e2) {
+                  try {
+                    // Method 3: Open in new window/tab
+                    window.open("https://www.arrowsdisplays.com/locations", "_parent");
+                  } catch (e3) {
+                    // Method 4: Last resort - open in new tab
+                    window.open("https://www.arrowsdisplays.com/locations", "_blank");
+                  }
+                }
+              }
+            }, 5000);
+          }
+        });
+      }
+    });
     </script>
     
     <!-- Accurate iframe height messaging -->
