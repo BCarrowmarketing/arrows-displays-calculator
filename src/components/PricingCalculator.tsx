@@ -162,9 +162,9 @@ export const PricingCalculator = () => {
           {/* Number of Locations */}
           <Card className="hover:shadow-card transition-all duration-300">
             <CardHeader className="text-center">
-              <CardTitle className="flex items-center justify-center gap-2">
+              <CardTitle className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
                 <MapPin className="w-5 h-5 text-primary" />
-                How many locations would you like to advertise at?
+                <span>How many locations would you like to advertise at?</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-center">
