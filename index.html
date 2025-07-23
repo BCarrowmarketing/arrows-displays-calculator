@@ -52,7 +52,12 @@
               
               // Wait 5 seconds then redirect
               setTimeout(function() {
-                window.top.location.href = "https://www.arrowsdisplays.com/locations";
+                try {
+                  window.top.location.href = "https://www.arrowsdisplays.com/locations";
+                } catch (e) {
+                  // Fallback if top-level redirect is blocked
+                  window.open("https://www.arrowsdisplays.com/locations", "_top");
+                }
               }, 5000);
             }
           });
