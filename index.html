@@ -50,31 +50,47 @@
               type: "form-submitted"
             }, "*");
             
-            // Also try to redirect from iframe after 5 seconds
+            // Set up modal close detection
             setTimeout(function() {
-              // Try multiple redirect methods
-              try {
-                // Method 1: Try to redirect parent window
-                if (window.parent && window.parent !== window) {
-                  window.parent.location.href = "https://www.arrowsdisplays.com/locations";
+              // Watch for modal close events
+              document.addEventListener('click', function(e) {
+                // Check if clicking outside modal or on close button
+                if (e.target.closest('.modal-overlay') || 
+                    e.target.closest('[data-dismiss="modal"]') ||
+                    e.target.closest('.close') ||
+                    e.target.closest('.btn-close') ||
+                    e.target.classList.contains('modal-overlay')) {
+                  redirectToLocations();
                 }
-              } catch (e1) {
-                try {
-                  // Method 2: Try top-level redirect
-                  window.top.location.href = "https://www.arrowsdisplays.com/locations";
-                } catch (e2) {
-                  try {
-                    // Method 3: Open in new window/tab
-                    window.open("https://www.arrowsdisplays.com/locations", "_parent");
-                  } catch (e3) {
-                    // Method 4: Last resort - open in new tab
-                    window.open("https://www.arrowsdisplays.com/locations", "_blank");
-                  }
+              });
+              
+              // Watch for escape key
+              document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                  redirectToLocations();
                 }
-              }
-            }, 5000);
+              });
+              
+              // Also redirect after 10 seconds automatically
+              setTimeout(redirectToLocations, 10000);
+              
+            }, 1000);
           }
         });
+      }
+      
+      function redirectToLocations() {
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.location.href = "https://www.arrowsdisplays.com/locations";
+          }
+        } catch (e1) {
+          try {
+            window.top.location.href = "https://www.arrowsdisplays.com/locations";
+          } catch (e2) {
+            window.open("https://www.arrowsdisplays.com/locations", "_blank");
+          }
+        }
       }
     });
     </script>
