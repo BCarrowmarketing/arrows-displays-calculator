@@ -145,7 +145,7 @@ export const PricingCalculator = () => {
                       className="w-full h-20 flex-col space-y-1"
                       onClick={() => setSpotDuration(duration)}
                     >
-                      <span className="text-2xl font-bold">{duration} secs</span>
+                      <span className="text-2xl font-bold">{duration} sec</span>
                       <span className="text-sm">${spotPrices[duration]}/month</span>
                     </Button>
                     {duration === 20 && (
