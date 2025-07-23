@@ -5,6 +5,23 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye, Plus, Minus, ExternalLink } from 'lucide-react';
 
+// Declare HubSpot interface
+declare global {
+  interface Window {
+    hbspt?: {
+      forms: {
+        create: (options: {
+          region: string;
+          portalId: string;
+          formId: string;
+          target: string;
+          onFormSubmit?: (form: any) => void;
+        }) => void;
+      };
+    };
+  }
+}
+
 interface PricingCalculation {
   basePrice: number;
   addOns: number;
@@ -91,6 +108,28 @@ export const PricingCalculator = () => {
     const script = document.createElement('script');
     script.src = 'https://js-na2.hsforms.net/forms/embed/242168862.js';
     script.defer = true;
+    
+    // Add form submission handler for proper redirect
+    script.onload = () => {
+      // Wait for HubSpot to initialize then add event listener
+      setTimeout(() => {
+        if (window.hbspt) {
+          window.hbspt.forms.create({
+            region: "na2",
+            portalId: "242168862",
+            formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
+            target: ".hs-form-frame",
+            onFormSubmit: function($form) {
+              // Redirect the parent window instead of iframe
+              setTimeout(() => {
+                window.parent.location.href = 'https://arrowsdisplays.com/locations/';
+              }, 1000); // Small delay to ensure form submission completes
+            }
+          });
+        }
+      }, 1000);
+    };
+    
     document.head.appendChild(script);
     
     return () => {
