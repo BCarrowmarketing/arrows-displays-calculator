@@ -16,6 +16,7 @@ declare global {
           formId: string;
           target: string;
           onFormSubmit?: (form: any) => void;
+          onFormSubmitted?: (form: any, data: any) => void;
         }) => void;
       };
     };
@@ -119,11 +120,9 @@ export const PricingCalculator = () => {
             portalId: "242168862",
             formId: "5dc939be-4be4-4ce1-b271-187881e30fa5",
             target: ".hs-form-frame",
-            onFormSubmit: function($form) {
-              // Redirect the parent window instead of iframe
-              setTimeout(() => {
-                window.parent.location.href = 'https://arrowsdisplays.com/locations/';
-              }, 1000); // Small delay to ensure form submission completes
+            onFormSubmitted: function($form, data) {
+              // Redirect the parent window immediately after submission
+              window.parent.location.href = 'https://arrowsdisplays.com/locations/';
             }
           });
         }
