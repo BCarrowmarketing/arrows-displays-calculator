@@ -7,8 +7,20 @@ import { Card, CardContent } from '@/components/ui/card';
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background">
+      {/* Header Section */}
+      <div className="container mx-auto px-6 pt-16 pb-8">
+        <div className="text-center space-y-4 animate-fade-in">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-[gradient-slide_4s_ease-in-out_infinite] bg-[length:200%_auto]">
+            Calculate Your Digital Advertising Investment
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            See how our community-focused pricing works for your business
+          </p>
+        </div>
+      </div>
+
       {/* Features Section */}
-      <div className="container mx-auto px-6 py-16">
+      <div className="container mx-auto px-6 pb-16">
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <Card className="hover:shadow-card transition-all duration-300 animate-fade-in">
             <CardContent className="p-6 text-center">

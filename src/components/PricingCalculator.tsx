@@ -101,16 +101,6 @@ export const PricingCalculator = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-4 animate-fade-in">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
-          Calculate Your Digital Advertising Investment
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          See how our community-focused pricing works for your business
-        </p>
-      </div>
-
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Configuration Panel */}
         <div className="lg:col-span-2 space-y-6">
