@@ -196,7 +196,10 @@ export const PricingCalculator = () => {
                 <Input
                   type="number"
                   value={locationCount}
-                  readOnly
+                  onChange={(e) => {
+                    const value = parseInt(e.target.value) || 1;
+                    setLocationCount(Math.max(1, value));
+                  }}
                   className="w-24 text-center text-lg font-semibold [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   min="1"
                 />
