@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye, Plus, Minus, ExternalLink } from 'lucide-react';
+import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye, Plus, PlusCircle, Minus, ExternalLink } from 'lucide-react';
 
 // Declare HubSpot interface
 declare global {
@@ -278,7 +278,7 @@ export const PricingCalculator = () => {
             </Badge>
             <CardHeader className="pt-8">
               <CardTitle className="flex items-center gap-2">
-                <Plus className="w-5 h-5 text-primary" />
+                <PlusCircle className="w-5 h-5 text-primary" />
                 Add-Ons
               </CardTitle>
             </CardHeader>
