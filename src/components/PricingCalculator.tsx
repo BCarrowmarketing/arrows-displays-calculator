@@ -138,7 +138,7 @@ export const PricingCalculator = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* Spot Duration */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
-            <Badge className="absolute -top-4 left-4 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold">
+            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
               Step 1
             </Badge>
             <CardHeader className="pt-8">
@@ -173,7 +173,7 @@ export const PricingCalculator = () => {
 
           {/* Number of Locations */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
-            <Badge className="absolute -top-4 left-4 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold">
+            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
               Step 2
             </Badge>
             <CardHeader className="text-center pt-8">
@@ -238,7 +238,7 @@ export const PricingCalculator = () => {
 
           {/* Contract Term */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
-            <Badge className="absolute -top-4 left-4 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold">
+            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
               Step 3
             </Badge>
             <CardHeader className="pt-8">
@@ -273,7 +273,7 @@ export const PricingCalculator = () => {
 
           {/* Add-Ons */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
-            <Badge className="absolute -top-4 left-4 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold">
+            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
               Optional
             </Badge>
             <CardHeader className="pt-8">
@@ -325,7 +325,7 @@ export const PricingCalculator = () => {
         <div className="space-y-6">
           {/* Main Price Display */}
           <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 animate-scale-in relative shadow-elegant">
-            <Badge className="absolute -top-4 left-4 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold">
+            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
               Step 4
             </Badge>
             <CardHeader className="text-center pt-8">
