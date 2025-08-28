@@ -124,15 +124,27 @@ export const PricingCalculator = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
+      {/* Instructions */}
+      <div className="text-center space-y-4 mb-8">
+        <h2 className="text-2xl font-bold text-foreground">How to Use This Calculator</h2>
+        <p className="text-muted-foreground max-w-3xl mx-auto">
+          Follow the simple steps below to calculate your digital advertising investment. 
+          Start with your ad length, then select locations, choose your commitment term, and add any optional upgrades.
+        </p>
+      </div>
+
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Configuration Panel */}
         <div className="lg:col-span-2 space-y-6">
           {/* Spot Duration */}
-          <Card className="hover:shadow-card transition-all duration-300">
+          <Card className="hover:shadow-card transition-all duration-300 relative">
+            <Badge className="absolute -top-3 left-4 bg-primary text-primary-foreground z-10 shadow-lg">
+              Step 1
+            </Badge>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Clock className="w-5 h-5 text-primary" />
-                Choose Your Spot Duration
+                Select Your Ad Length
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -160,7 +172,10 @@ export const PricingCalculator = () => {
           </Card>
 
           {/* Number of Locations */}
-          <Card className="hover:shadow-card transition-all duration-300">
+          <Card className="hover:shadow-card transition-all duration-300 relative">
+            <Badge className="absolute -top-3 left-4 bg-primary text-primary-foreground z-10 shadow-lg">
+              Step 2
+            </Badge>
             <CardHeader className="text-center">
               <CardTitle className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
                 <MapPin className="w-5 h-5 text-primary" />
@@ -222,7 +237,10 @@ export const PricingCalculator = () => {
           </Card>
 
           {/* Contract Term */}
-          <Card className="hover:shadow-card transition-all duration-300">
+          <Card className="hover:shadow-card transition-all duration-300 relative">
+            <Badge className="absolute -top-3 left-4 bg-primary text-primary-foreground z-10 shadow-lg">
+              Step 3
+            </Badge>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-primary" />
@@ -254,7 +272,10 @@ export const PricingCalculator = () => {
           </Card>
 
           {/* Add-Ons */}
-          <Card className="hover:shadow-card transition-all duration-300">
+          <Card className="hover:shadow-card transition-all duration-300 relative">
+            <Badge className="absolute -top-3 left-4 bg-accent text-accent-foreground z-10 shadow-lg">
+              Optional
+            </Badge>
             <CardHeader>
               <CardTitle>Optional Add-Ons</CardTitle>
             </CardHeader>
@@ -303,7 +324,10 @@ export const PricingCalculator = () => {
         {/* Results Panel */}
         <div className="space-y-6">
           {/* Main Price Display */}
-          <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 animate-scale-in">
+          <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 animate-scale-in relative shadow-elegant">
+            <Badge className="absolute -top-3 left-4 bg-primary text-primary-foreground z-10 shadow-lg">
+              Step 4
+            </Badge>
             <CardHeader className="text-center">
               <CardTitle>Your Monthly Investment</CardTitle>
             </CardHeader>

@@ -22,8 +22,8 @@ const Index = () => {
       {/* Features Section */}
       <div className="container mx-auto px-6 pb-16">
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <Card className="hover:shadow-card transition-all duration-300 animate-fade-in">
-            <CardContent className="p-6 text-center">
+          <div className="bg-gradient-to-b from-primary/10 to-primary/5 rounded-lg transition-all duration-300 animate-fade-in">
+            <div className="p-6 text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="w-6 h-6 text-primary" />
               </div>
@@ -31,11 +31,11 @@ const Index = () => {
               <p className="text-muted-foreground">
                 Reach Southern Idaho residents where they shop, dine, and gather every day.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="hover:shadow-card transition-all duration-300 animate-fade-in">
-            <CardContent className="p-6 text-center">
+          <div className="bg-gradient-to-b from-primary/10 to-primary/5 rounded-lg transition-all duration-300 animate-fade-in">
+            <div className="p-6 text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-6 h-6 text-primary" />
               </div>
@@ -43,11 +43,11 @@ const Index = () => {
               <p className="text-muted-foreground">
                 Transparent pricing with volume discounts. No hidden fees or complicated contracts.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
 
-          <Card className="hover:shadow-card transition-all duration-300 animate-fade-in">
-            <CardContent className="p-6 text-center">
+          <div className="bg-gradient-to-b from-primary/10 to-primary/5 rounded-lg transition-all duration-300 animate-fade-in">
+            <div className="p-6 text-center">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-6 h-6 text-primary" />
               </div>
@@ -55,8 +55,8 @@ const Index = () => {
               <p className="text-muted-foreground">
                 Premium locations with proven foot traffic and engaged local audiences.
               </p>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Pricing Calculator */}
