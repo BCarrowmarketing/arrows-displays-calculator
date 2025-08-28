@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
-  base: '/arrows-displays-calculator/',
+  base: '/',
   server: {
     host: "::",
     port: 8080
