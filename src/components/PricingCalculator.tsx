@@ -197,7 +197,7 @@ export const PricingCalculator = () => {
                   type="number"
                   value={locationCount}
                   readOnly
-                  className="w-24 text-center text-lg font-semibold"
+                  className="w-24 text-center text-lg font-semibold [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   min="1"
                 />
                 <Button
