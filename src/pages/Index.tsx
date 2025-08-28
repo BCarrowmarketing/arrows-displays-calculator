@@ -22,9 +22,9 @@ const Index = () => {
       {/* Features Section */}
       <div className="container mx-auto px-6 pb-16">
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-gradient-to-b from-primary/3 to-primary/1 rounded-lg transition-all duration-300 animate-fade-in">
+          <div className="bg-gradient-to-b from-primary/8 to-primary/3 rounded-lg transition-all duration-300 animate-fade-in">
             <div className="p-6 text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-primary/15 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Users className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Community Focused</h3>
@@ -34,9 +34,9 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-b from-primary/3 to-primary/1 rounded-lg transition-all duration-300 animate-fade-in">
+          <div className="bg-gradient-to-b from-primary/8 to-primary/3 rounded-lg transition-all duration-300 animate-fade-in">
             <div className="p-6 text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-primary/15 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Simple & Affordable</h3>
@@ -46,9 +46,9 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-b from-primary/3 to-primary/1 rounded-lg transition-all duration-300 animate-fade-in">
+          <div className="bg-gradient-to-b from-primary/8 to-primary/3 rounded-lg transition-all duration-300 animate-fade-in">
             <div className="p-6 text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-primary/15 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Trusted Network</h3>
