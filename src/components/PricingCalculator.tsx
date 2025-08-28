@@ -129,7 +129,7 @@ export const PricingCalculator = () => {
         <h2 className="text-2xl font-bold text-foreground">How to Use This Calculator</h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           Follow the simple steps below to calculate your digital advertising investment. 
-          Start with your ad length, then select locations, choose your commitment term, and add any optional upgrades.
+          Start with your ad length, then select the quantity of locations, choose your commitment term, and add any optional upgrades.
         </p>
       </div>
 
@@ -196,10 +196,7 @@ export const PricingCalculator = () => {
                 <Input
                   type="number"
                   value={locationCount}
-                  onChange={(e) => {
-                    const value = parseInt(e.target.value) || 1;
-                    setLocationCount(Math.max(1, value));
-                  }}
+                  readOnly
                   className="w-24 text-center text-lg font-semibold"
                   min="1"
                 />
