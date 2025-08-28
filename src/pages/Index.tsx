@@ -20,8 +20,8 @@ const Index = () => {
       </div>
 
       {/* Features Section */}
-      <div className="container mx-auto px-6 pb-16">
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+      <div className="container mx-auto px-6 pb-8">
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
           <div className="bg-gradient-to-b from-primary/8 to-primary/3 rounded-lg transition-all duration-300 animate-fade-in">
             <div className="p-6 text-center">
               <div className="w-12 h-12 bg-primary/15 rounded-lg flex items-center justify-center mx-auto mb-4">

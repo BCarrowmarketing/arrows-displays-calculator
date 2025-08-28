@@ -125,7 +125,7 @@ export const PricingCalculator = () => {
   return (
     <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
       {/* Instructions */}
-      <div className="text-center space-y-4 mb-8">
+      <div className="text-center space-y-4 mb-10">
         <h2 className="text-2xl font-bold text-foreground">How to Use This Calculator</h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           Follow the simple steps below to calculate your digital advertising investment. 
