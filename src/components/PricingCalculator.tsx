@@ -277,7 +277,7 @@ export const PricingCalculator = () => {
               Optional
             </Badge>
             <CardHeader className="pt-8">
-              <CardTitle>Optional Add-Ons</CardTitle>
+              <CardTitle>Add-Ons</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
