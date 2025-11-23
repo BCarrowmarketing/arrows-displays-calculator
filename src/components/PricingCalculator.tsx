@@ -171,6 +171,29 @@ export const PricingCalculator = () => {
                 </Button>
               </div>
               
+              {/* Savings messaging */}
+              {locationCount === 1 && (
+                <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
+                  <p className="text-sm text-accent font-semibold text-center">
+                    Want to save 17%? Add another location for just $62.50/location
+                  </p>
+                </div>
+              )}
+              {locationCount === 2 && (
+                <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
+                  <p className="text-sm text-accent font-semibold text-center">
+                    Want to save even more? Add another to save 33% ($50/location)
+                  </p>
+                </div>
+              )}
+              {locationCount >= 3 && (
+                <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
+                  <p className="text-sm text-accent font-semibold text-center">
+                    You're getting our best rate at $50/location!
+                  </p>
+                </div>
+              )}
+              
               <p className="text-sm text-muted-foreground">
                 Not sure which locations?{' '}
                 <a 
