@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Clock, MapPin, TrendingUp, Zap, Eye, Plus, PlusCircle, Minus, ExternalLink } from 'lucide-react';
+import { ArrowRight, Clock, MapPin, TrendingUp, Eye, Plus, PlusCircle, Minus, ExternalLink } from 'lucide-react';
 
 // Declare HubSpot interface
 declare global {
@@ -35,10 +35,8 @@ interface PricingCalculation {
 }
 
 export const PricingCalculator = () => {
-  const [spotDuration, setSpotDuration] = useState<10 | 20 | 30>(20);
   const [locationCount, setLocationCount] = useState<number>(1);
   const [contractTerm, setContractTerm] = useState<6 | 12>(6);
-  const [peakTime, setPeakTime] = useState(false);
   const [screenTakeover, setScreenTakeover] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -53,11 +51,8 @@ export const PricingCalculator = () => {
     annualSavings: 0,
   });
 
-  const spotPrices = {
-    10: 100,
-    20: 150,
-    30: 200,
-  };
+  // Fixed base price for all spots (10-20 seconds)
+  const basePrice = 150;
 
   const getLocationDiscount = (count: number) => {
     if (count >= 11) return 0.15;
@@ -74,12 +69,11 @@ export const PricingCalculator = () => {
   };
 
   useEffect(() => {
-    const basePrice = spotPrices[spotDuration];
-    const addOnCost = (peakTime ? 50 : 0) + (screenTakeover ? 50 : 0);
+    const addOnCost = screenTakeover ? 5 : 0;
     const perLocationPrice = basePrice + addOnCost;
     
-    // Apply 12-month discount first
-    const planDiscountRate = contractTerm === 12 ? 0.10 : 0;
+    // Apply 12-month discount first (5% for 12 months)
+    const planDiscountRate = contractTerm === 12 ? 0.05 : 0;
     const discountedPerLocation = perLocationPrice * (1 - planDiscountRate);
     
     // Then apply location discount
@@ -102,7 +96,7 @@ export const PricingCalculator = () => {
       totalSavings,
       annualSavings,
     });
-  }, [spotDuration, locationCount, contractTerm, peakTime, screenTakeover]);
+  }, [locationCount, contractTerm, screenTakeover]);
 
   useEffect(() => {
     // Listen for form submission message from iframe
@@ -129,52 +123,27 @@ export const PricingCalculator = () => {
         <h2 className="text-2xl font-bold text-foreground">How to Use This Calculator</h2>
         <p className="text-muted-foreground max-w-3xl mx-auto">
           Follow the simple steps below to calculate your digital advertising investment. 
-          Start with your ad length, then select the quantity of locations, choose your commitment term, and add any optional upgrades.
+          Select the quantity of locations, choose your commitment term, and add any optional upgrades.
         </p>
       </div>
+
+      {/* Ad Length Info */}
+      <Card className="bg-primary/5 border-primary/20">
+        <CardContent className="py-6 text-center">
+          <div className="flex items-center justify-center gap-2 text-lg font-semibold text-foreground">
+            <Clock className="w-5 h-5 text-primary" />
+            All advertising spots are 10-20 seconds in length
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Configuration Panel */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Spot Duration */}
-          <Card className="hover:shadow-card transition-all duration-300 relative">
-            <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
-              Step 1
-            </Badge>
-            <CardHeader className="pt-8">
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-primary" />
-                Select Your Ad Length
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {([10, 20, 30] as const).map((duration) => (
-                  <div key={duration} className="relative">
-                    <Button
-                      variant={spotDuration === duration ? "option-selected" : "option"}
-                      size="lg"
-                      className="w-full h-20 flex-col space-y-1"
-                      onClick={() => setSpotDuration(duration)}
-                    >
-                      <span className="text-2xl font-bold">{duration} sec</span>
-                      <span className="text-sm">${spotPrices[duration]}/month</span>
-                    </Button>
-                    {duration === 20 && (
-                      <Badge className="absolute -top-2 -right-2 bg-accent z-10 shadow-lg">
-                        Most Popular
-                      </Badge>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Number of Locations */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
             <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
-              Step 2
+              Step 1
             </Badge>
             <CardHeader className="text-center pt-8">
               <CardTitle className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center">
@@ -239,7 +208,7 @@ export const PricingCalculator = () => {
           {/* Contract Term */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
             <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
-              Step 3
+              Step 2
             </Badge>
             <CardHeader className="pt-8">
               <CardTitle className="flex items-center gap-2">
@@ -265,7 +234,7 @@ export const PricingCalculator = () => {
                   onClick={() => setContractTerm(12)}
                 >
                   <span className="font-semibold">12 Month Commitment</span>
-                  <span className="text-sm">10% off</span>
+                  <span className="text-sm">5% off</span>
                 </Button>
               </div>
             </CardContent>
@@ -274,7 +243,7 @@ export const PricingCalculator = () => {
           {/* Add-Ons */}
           <Card className="hover:shadow-card transition-all duration-300 relative">
             <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
-              Optional
+              Step 3
             </Badge>
             <CardHeader className="pt-8">
               <CardTitle className="flex items-center gap-2">
@@ -282,26 +251,7 @@ export const PricingCalculator = () => {
                 Add-Ons
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                <div className="flex items-center space-x-3">
-                  <Zap className="w-5 h-5 text-warning" />
-                  <div>
-                    <div className="font-medium">Peak Time Upgrade</div>
-                    <div className="text-sm text-muted-foreground">Priority scheduling during high-traffic hours</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold">+$50/location</span>
-                  <input
-                    type="checkbox"
-                    checked={peakTime}
-                    onChange={(e) => setPeakTime(e.target.checked)}
-                    className="w-4 h-4 accent-primary"
-                  />
-                </div>
-              </div>
-
+            <CardContent>
               <div className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                 <div className="flex items-center space-x-3">
                   <Eye className="w-5 h-5 text-warning" />
@@ -311,7 +261,7 @@ export const PricingCalculator = () => {
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="font-semibold">+$50/location</span>
+                  <span className="font-semibold">+$5/location</span>
                   <input
                     type="checkbox"
                     checked={screenTakeover}
@@ -329,7 +279,7 @@ export const PricingCalculator = () => {
           {/* Main Price Display */}
           <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 animate-scale-in relative shadow-elegant">
             <Badge className="absolute -top-4 left-2 bg-[#404041] text-white border border-border z-10 shadow-lg px-4 py-2 text-sm font-bold uppercase">
-              Step 4
+              Your Price
             </Badge>
             <CardHeader className="text-center pt-8">
               <CardTitle>Your Monthly Investment</CardTitle>
@@ -414,7 +364,7 @@ export const PricingCalculator = () => {
             <Card className="mt-2 group-open:animate-scale-in">
               <CardContent className="p-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Base price ({spotDuration}s per location):</span>
+                  <span>Base price (10-20s per location):</span>
                   <span>${calculation.basePrice}</span>
                 </div>
                 {calculation.addOns > 0 && (
