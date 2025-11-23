@@ -51,49 +51,38 @@ export const PricingCalculator = () => {
     annualSavings: 0,
   });
 
-  // Fixed base price for all spots (10-20 seconds)
-  const basePrice = 150;
-
-  const getLocationDiscount = (count: number) => {
-    if (count >= 11) return 0.15;
-    if (count >= 6) return 0.10;
-    if (count >= 2) return 0.05;
-    return 0;
-  };
-
-  const getDiscountLabel = (count: number) => {
-    if (count >= 11) return '15% multi-location discount applied';
-    if (count >= 6) return '10% multi-location discount applied';
-    if (count >= 2) return '5% multi-location discount applied';
-    return '';
+  // Tiered pricing based on location quantity
+  const getBasePrice = (count: number) => {
+    if (count === 1) return 75;
+    if (count === 2) return 125;
+    if (count === 3) return 150;
+    // 4+ locations: $150 for first 3, then $50 for each additional
+    return 150 + ((count - 3) * 50);
   };
 
   useEffect(() => {
-    const addOnCost = screenTakeover ? 5 : 0;
-    const perLocationPrice = basePrice + addOnCost;
+    // Get base price for the location count
+    const basePrice = getBasePrice(locationCount);
     
-    // Apply 12-month discount first (5% for 12 months)
+    // Add screen takeover cost if selected ($5 per location)
+    const addOnCost = screenTakeover ? (5 * locationCount) : 0;
+    const subtotalBeforeDiscount = basePrice + addOnCost;
+    
+    // Apply 12-month commitment discount (5%)
     const planDiscountRate = contractTerm === 12 ? 0.05 : 0;
-    const discountedPerLocation = perLocationPrice * (1 - planDiscountRate);
+    const planDiscountAmount = subtotalBeforeDiscount * planDiscountRate;
     
-    // Then apply location discount
-    const locationDiscountRate = getLocationDiscount(locationCount);
-    const subtotalBeforeLocationDiscount = discountedPerLocation * locationCount;
-    const locationDiscountAmount = subtotalBeforeLocationDiscount * locationDiscountRate;
-    
-    const finalPrice = subtotalBeforeLocationDiscount - locationDiscountAmount;
-    const originalPrice = perLocationPrice * locationCount;
-    const totalSavings = originalPrice - finalPrice;
-    const annualSavings = totalSavings * 12;
+    const finalPrice = subtotalBeforeDiscount - planDiscountAmount;
+    const annualSavings = planDiscountAmount * 12;
 
     setCalculation({
       basePrice,
       addOns: addOnCost,
-      subtotal: perLocationPrice,
-      planDiscount: perLocationPrice * planDiscountRate * locationCount,
-      locationDiscount: locationDiscountAmount,
+      subtotal: subtotalBeforeDiscount,
+      planDiscount: planDiscountAmount,
+      locationDiscount: 0,
       finalPrice,
-      totalSavings,
+      totalSavings: planDiscountAmount,
       annualSavings,
     });
   }, [locationCount, contractTerm, screenTakeover]);
@@ -181,14 +170,6 @@ export const PricingCalculator = () => {
                   <Plus className="w-4 h-4" />
                 </Button>
               </div>
-              
-              {getDiscountLabel(locationCount) && (
-                <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
-                  <div className="text-accent font-bold text-center">
-                    {getDiscountLabel(locationCount)}
-                  </div>
-                </div>
-              )}
               
               <p className="text-sm text-muted-foreground">
                 Not sure which locations?{' '}
@@ -309,24 +290,16 @@ export const PricingCalculator = () => {
           </Card>
 
           {/* Savings Breakdown */}
-          {(calculation.planDiscount > 0 || calculation.locationDiscount > 0) && (
+          {calculation.planDiscount > 0 && (
             <Card className="animate-fade-in">
               <CardHeader>
                 <CardTitle>Savings Breakdown</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {calculation.planDiscount > 0 && (
-                  <div className="flex justify-between">
-                    <span>12-month commitment:</span>
-                    <span className="text-accent font-bold text-lg">-${Math.round(calculation.planDiscount)}</span>
-                  </div>
-                )}
-                {calculation.locationDiscount > 0 && (
-                  <div className="flex justify-between">
-                    <span>Multi-location discount:</span>
-                    <span className="text-accent font-bold text-lg">-${Math.round(calculation.locationDiscount)}</span>
-                  </div>
-                )}
+                <div className="flex justify-between">
+                  <span>12-month commitment:</span>
+                  <span className="text-accent font-bold text-lg">-${Math.round(calculation.planDiscount)}</span>
+                </div>
                 <div className="border-t pt-2 flex justify-between font-bold text-xl">
                   <span>Total Monthly Savings:</span>
                   <span className="text-accent">${Math.round(calculation.totalSavings)}</span>
@@ -367,23 +340,25 @@ export const PricingCalculator = () => {
             <Card className="mt-2 group-open:animate-scale-in">
               <CardContent className="p-4 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span>Base price (10-20s per location):</span>
+                  <span>Base price ({locationCount} location{locationCount > 1 ? 's' : ''}):</span>
                   <span>${calculation.basePrice}</span>
                 </div>
                 {calculation.addOns > 0 && (
                   <div className="flex justify-between">
-                    <span>Add-ons per location:</span>
-                    <span>${calculation.addOns}</span>
+                    <span>Screen Takeover ({locationCount} location{locationCount > 1 ? 's' : ''}):</span>
+                    <span>+${calculation.addOns}</span>
                   </div>
                 )}
-                <div className="flex justify-between">
-                  <span>Subtotal per location:</span>
+                <div className="flex justify-between font-medium">
+                  <span>Subtotal:</span>
                   <span>${calculation.subtotal}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Number of locations:</span>
-                  <span>{locationCount}</span>
-                </div>
+                {calculation.planDiscount > 0 && (
+                  <div className="flex justify-between text-accent">
+                    <span>12-month discount:</span>
+                    <span>-${Math.round(calculation.planDiscount)}</span>
+                  </div>
+                )}
                 <div className="border-t pt-2 flex justify-between font-semibold">
                   <span>Final Monthly Total:</span>
                   <span>${Math.round(calculation.finalPrice)}</span>
