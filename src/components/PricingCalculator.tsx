@@ -394,6 +394,63 @@ export const PricingCalculator = () => {
         </div>
       </div>
 
+      {/* Pricing Comparison Table */}
+      <Card className="mt-8">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl">Commitment Term Savings Comparison</CardTitle>
+          <p className="text-muted-foreground mt-2">
+            See how much you save with a 12-month commitment across different location quantities
+          </p>
+        </CardHeader>
+        <CardContent className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-3 px-4 font-semibold">Locations</th>
+                <th className="text-right py-3 px-4 font-semibold">6-Month Term</th>
+                <th className="text-right py-3 px-4 font-semibold">12-Month Term</th>
+                <th className="text-right py-3 px-4 font-semibold text-accent">Monthly Savings</th>
+                <th className="text-right py-3 px-4 font-semibold text-accent">Annual Savings</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[1, 2, 5, 10, 15].map((locations) => {
+                const basePrice = 150;
+                const locationDiscountRate = locations >= 11 ? 0.15 : locations >= 6 ? 0.10 : locations >= 2 ? 0.05 : 0;
+                
+                // 6-month pricing
+                const sixMonthPerLocation = basePrice;
+                const sixMonthSubtotal = sixMonthPerLocation * locations;
+                const sixMonthLocationDiscount = sixMonthSubtotal * locationDiscountRate;
+                const sixMonthFinal = sixMonthSubtotal - sixMonthLocationDiscount;
+                
+                // 12-month pricing (5% commitment discount)
+                const twelveMonthPerLocation = basePrice * 0.95;
+                const twelveMonthSubtotal = twelveMonthPerLocation * locations;
+                const twelveMonthLocationDiscount = twelveMonthSubtotal * locationDiscountRate;
+                const twelveMonthFinal = twelveMonthSubtotal - twelveMonthLocationDiscount;
+                
+                const monthlySavings = sixMonthFinal - twelveMonthFinal;
+                const annualSavings = monthlySavings * 12;
+                
+                return (
+                  <tr key={locations} className="border-b hover:bg-muted/50 transition-colors">
+                    <td className="py-3 px-4 font-medium">{locations}</td>
+                    <td className="text-right py-3 px-4">${Math.round(sixMonthFinal)}/mo</td>
+                    <td className="text-right py-3 px-4">${Math.round(twelveMonthFinal)}/mo</td>
+                    <td className="text-right py-3 px-4 text-accent font-semibold">${Math.round(monthlySavings)}</td>
+                    <td className="text-right py-3 px-4 text-accent font-bold">${Math.round(annualSavings)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+          <p className="text-sm text-muted-foreground mt-4 text-center">
+            * Prices shown include applicable multi-location discounts (5% for 2-5 locations, 10% for 6-10 locations, 15% for 11+ locations)
+          </p>
+        </CardContent>
+      </Card>
+
       {showPopup && (
         <div 
           className="absolute bg-black/80 flex items-center justify-center z-50 p-2"
