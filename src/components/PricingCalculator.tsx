@@ -189,7 +189,7 @@ export const PricingCalculator = () => {
               {locationCount >= 3 && (
                 <div className="bg-accent/10 border border-accent/20 rounded-lg p-3">
                   <p className="text-sm text-accent font-semibold text-center">
-                    You're getting our best rate at $50/location!
+                    Now any additional locations are only $50/month
                   </p>
                 </div>
               )}
