@@ -237,6 +237,9 @@ export const PricingCalculator = () => {
                   <span className="text-sm">5% off</span>
                 </Button>
               </div>
+              <p className="text-sm text-muted-foreground text-center mt-4">
+                Minimum 6-month commitment required for all advertising plans
+              </p>
             </CardContent>
           </Card>
 
